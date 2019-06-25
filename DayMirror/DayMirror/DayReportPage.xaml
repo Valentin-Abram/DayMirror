@@ -7,7 +7,8 @@
              x:Class="DayMirror.DayReportPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Current date 23.06.2019"/>
+            <DatePicker
+                DateSelected="OnShowReportDateSelected"/>
             <ListView
                 x:Name="listView"
                 Margin="20">
