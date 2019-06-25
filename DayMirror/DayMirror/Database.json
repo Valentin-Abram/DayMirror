@@ -1,0 +1,22 @@
+{
+  "DayMirrorDb": [
+    {
+      "Day": {
+        "Date": "yy/mm/dd",
+        "Actions": [
+          {
+            "Title": "Some action desc",
+            "StartTime": "hh:mm:ss",
+            "EndTime": "hh:mm:ss"
+          },
+          {
+            "Title": "Some action desc",
+            "StartTime": "hh:mm:ss",
+            "EndTime": "hh:mm:ss"
+          }
+        ]
+      }
+    }
+  ]
+
+}
