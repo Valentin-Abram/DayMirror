@@ -5,14 +5,10 @@ using System.Text;
 
 namespace DayMirror.Models
 {
-    public class UserAction
+    public class UserActionContext
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
         public string Title { get; set; }
-        public UserActionContext ActionContext { get; set; }
     }
 }

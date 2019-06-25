@@ -2,6 +2,7 @@
 using DayMirror.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,19 +25,30 @@ namespace DayMirror
         {
             base.OnAppearing();
 
-            List<ActionInfoView> actionsView = new List<ActionInfoView>();
+            listView.ItemsSource = await GetActionList(DateTime.Now);
+        }
+
+        async void OnShowReportDateSelected(object sender, DateChangedEventArgs e)
+        {
+            listView.ItemsSource = await GetActionList(e.NewDate);
+        }
+
+        private async Task<List<ActionInfoView>> GetActionList(DateTime dateTime)
+        {
+            List<ActionInfoView> actionsViewList = new List<ActionInfoView>();
 
             var actions = await App.Database.GetDayActionsAsync(DateTime.Now.Date);
 
-            foreach (var item in actions.Where(a => a.Date.Date == DateTime.Now.Date).OrderBy(a => a.StartTime))
+            foreach (var item in actions.Where(a => a.Date.Date == dateTime.Date).OrderBy(a => a.StartTime))
             {
-                actionsView.Add(new ActionInfoView(item));
+                actionsViewList.Add(new ActionInfoView(item));
             }
 
-            listView.ItemsSource = actionsView;
+            return actionsViewList;
         }
     }
 
+   
 
     class ActionInfoView
     {
