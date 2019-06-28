@@ -8,7 +8,10 @@
     <ContentPage.Content>
         <StackLayout>
             <Label 
-                Text="{Binding Title}"/>
+                Text="{Binding Title}"
+                HorizontalOptions="Center"
+                FontSize="Large"
+                Margin="0, 40"/>
             <Label 
                 x:Name="Timer"
                 Text="00:00:00"

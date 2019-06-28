@@ -8,14 +8,21 @@
     <ContentPage.Content>
         <StackLayout>
             <Label 
-                Text="{Binding Title}"/>
+                Text="{Binding Title}"
+                Margin="10"
+                FontSize="Large"/>
             <Label 
                 Text="{Binding StartTime, StringFormat='Start time {0:hh\\:mm\\:ss}'}"
-                />
+                Margin="10"
+                FontSize="Large"/>
             <Label 
-                Text="{Binding EndTime, StringFormat='Start time {0:hh\\:mm\\:ss}'}"/>
+                Text="{Binding EndTime, StringFormat='End time {0:hh\\:mm\\:ss}'}"
+                Margin="10"
+                FontSize="Large"/>
             <Label 
-                x:Name="TimeElapsedLabel"/>
+                x:Name="TimeElapsedLabel"
+                Margin="10"
+                FontSize="Large"/>
             <Button 
                 Text="New action"
                 Clicked="OnCreateActionButtonClicked"/>

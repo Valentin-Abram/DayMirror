@@ -11,7 +11,10 @@
                 DateSelected="OnShowReportDateSelected"/>
             <ListView
                 x:Name="listView"
-                Margin="20">
+                Margin="20"
+                SeparatorVisibility="Default"
+                SeparatorColor="Black"
+                ItemSelected="OnReportItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell

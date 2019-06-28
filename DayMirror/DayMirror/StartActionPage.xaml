@@ -5,20 +5,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DayMirror.StartActionPage">
-        <StackLayout>
-            <Entry 
+    <StackLayout>
+        <Entry 
                 Placeholder="Describe what you are going to do"
                 Text="{Binding Title}"/>
 
-            <StackLayout Orientation="Horizontal">
-                <Button 
+        <StackLayout Orientation="Horizontal">
+            <Button 
                         Text="Start"
                         Clicked="OnStartActivityButtonClicked"
                         HorizontalOptions="FillAndExpand"/>
-                <Button 
+            <Button 
                         Text="Add context"
                         HorizontalOptions="FillAndExpand"
                         Clicked="OnAddContextButtonClicked"/>
         </StackLayout>
-        </StackLayout>
+    </StackLayout>
 </ContentPage>

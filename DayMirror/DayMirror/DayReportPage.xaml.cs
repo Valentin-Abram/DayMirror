@@ -33,6 +33,13 @@ namespace DayMirror
             listView.ItemsSource = await GetActionList(e.NewDate);
         }
 
+
+        void OnReportItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) return;
+            ((ListView)sender).SelectedItem = null;
+        }
+
         private async Task<List<ActionInfoView>> GetActionList(DateTime dateTime)
         {
             List<ActionInfoView> actionsViewList = new List<ActionInfoView>();

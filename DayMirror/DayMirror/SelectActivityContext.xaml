@@ -9,7 +9,10 @@
         
         <StackLayout>
             <ListView x:Name="listView"
-                      ItemSelected="ActivityContextSelected">
+                      ItemSelected="ActivityContextSelected"
+                      Margin="20"
+                      SeparatorVisibility="Default"
+                      SeparatorColor="Black">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
