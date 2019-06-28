@@ -38,10 +38,19 @@ namespace DayMirror
             List<ActionInfoView> actionsViewList = new List<ActionInfoView>();
 
             var actions = await App.Database.GetDayActionsAsync(DateTime.Now.Date);
+            var contexts = await App.Database.GetActionContextsAsync();
 
             foreach (var item in actions.Where(a => a.Date.Date == dateTime.Date).OrderBy(a => a.StartTime))
             {
-                actionsViewList.Add(new ActionInfoView(item));
+                var listItem = new ActionInfoView(item);
+                var context = contexts.FirstOrDefault(c => c.ID == item.UserActionContextId);
+
+                if (context != null)
+                {
+                    listItem.Title += $" [ {context.Title} ]";
+                }
+
+                actionsViewList.Add(listItem);
             }
 
             return actionsViewList;
@@ -58,9 +67,11 @@ namespace DayMirror
         public ActionInfoView(UserAction action)
         {
             this.Title = action.Title;
+
             this.FullTimeInfo = $"{action.StartTime.ToString(@"hh\:mm\:ss")}" +
                 $" - {action.EndTime.ToString(@"hh\:mm\:ss")}" +
                 $" Total time {action.EndTime.Subtract(action.StartTime).ToString(@"hh\:mm\:ss")}";
         }
+
     }
 }

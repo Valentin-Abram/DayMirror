@@ -21,6 +21,13 @@ namespace DayMirror
         async void OnStartActivityButtonClicked(object sender, EventArgs e)
         {
             var action = (UserAction)BindingContext;
+
+            if (string.IsNullOrEmpty(action.Title))
+            {
+                await DisplayAlert("", "Please enter action name", "Cancel");
+                return;
+            }
+
             action.StartTime = DateTime.Now.TimeOfDay;
             action.Date = DateTime.Now;
 
@@ -29,5 +36,14 @@ namespace DayMirror
                 BindingContext = action
             });
         }
+
+        async void OnAddContextButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SelectActivityContext()
+            {
+                BindingContext = new UserAction()
+            });
+        }
+
     }
 }

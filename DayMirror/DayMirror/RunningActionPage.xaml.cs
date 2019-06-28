@@ -35,7 +35,7 @@ namespace DayMirror
             var action = ((UserAction)BindingContext);
             action.EndTime = DateTime.Now.TimeOfDay;
 
-            await App.Database.SaveRecord(action);
+            await App.Database.CreateOrUpdateAction(action);
 
             await Navigation.PushAsync(new FinishedActionDetails()
             {

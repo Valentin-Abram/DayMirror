@@ -16,22 +16,22 @@ namespace DayMirror.Database
         public DayMirrorSqlDb(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<UserAction>().Wait();
             _database.CreateTableAsync<UserActionContext>().Wait();
+            _database.CreateTableAsync<UserAction>().Wait();
         }
 
 
         // ToDo : find out why Where condition throws exception and how to make it work properly
-        public Task<List<UserAction>> GetDayActionsAsync(DateTime dateTime)
+        public async Task<List<UserAction>> GetDayActionsAsync(DateTime dateTime)
         {
-            var result = _database.Table<UserAction>()
+            var result = await _database.Table<UserAction>()
                 //.Where(d => ((DateTime)d.Date).Date == dateTime.Date)
                 .ToListAsync();
 
             return result;
         }
 
-        public Task<int> SaveRecord(UserAction action)
+        public Task<int> CreateOrUpdateAction(UserAction action)
         {
             if (action.ID == 0)
             {
@@ -43,21 +43,38 @@ namespace DayMirror.Database
             }
         }
 
-        public Task<int> CreateActionContext(UserActionContext context)
+        public Task<int> DeleteAction(UserAction action)
         {
-            if (context.ID == 0)
+            return _database.DeleteAsync<UserAction>(action);
+        }
+
+        public Task<int> CreateOrUpdateActionContextAsync(UserActionContext actionContext)
+        {
+            if (actionContext.ID == 0)
             {
-                return _database.InsertAsync(context);
+                return _database.InsertAsync(actionContext);
             }
             else
             {
-                return _database.UpdateAsync(context);
+                return _database.UpdateAsync(actionContext);
             }
+        }
+
+        public Task<int> DeleteActionContextAsync(UserActionContext actionContext)
+        {
+            return _database.DeleteAsync<UserActionContext>(actionContext.ID);
         }
 
         public Task<List<UserActionContext>> GetActionContextsAsync()
         {
             return _database.Table<UserActionContext>().ToListAsync();
+        }
+
+        public Task<UserActionContext> GetActionContextAsync(int ID)
+        {
+            var context = _database.FindAsync<UserActionContext>(ID);
+
+            return context;
         }
     }
 }
