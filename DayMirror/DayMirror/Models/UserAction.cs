@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,8 @@ namespace DayMirror.Models
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string Title { get; set; }
-        public UserActionContext ActionContext { get; set; }
+
+        [ForeignKey(typeof(UserActionContext))]
+        public int UserActionContextId { get; set; }
     }
 }

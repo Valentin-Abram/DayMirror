@@ -9,8 +9,16 @@
             <Entry 
                 Placeholder="Describe what you are going to do"
                 Text="{Binding Title}"/>
-            <Button 
-                Text="Start"
-                Clicked="OnStartActivityButtonClicked"/>
+
+            <StackLayout Orientation="Horizontal">
+                <Button 
+                        Text="Start"
+                        Clicked="OnStartActivityButtonClicked"
+                        HorizontalOptions="FillAndExpand"/>
+                <Button 
+                        Text="Add context"
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnAddContextButtonClicked"/>
+        </StackLayout>
         </StackLayout>
 </ContentPage>
