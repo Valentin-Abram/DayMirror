@@ -19,6 +19,11 @@ namespace DayMirror
             InitializeComponent();
         }
 
+        void OnActionTitleTextChanged(object sender, TextChangedEventArgs e)
+        {
+            (BindingContext as UserActionViewModel).Title = e.NewTextValue;
+        }
+
         async void OnStartActivityButtonClicked(object sender, EventArgs e)
         {
             var action = (UserActionViewModel)BindingContext;

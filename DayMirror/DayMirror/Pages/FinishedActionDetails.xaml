@@ -8,9 +8,25 @@
     <ContentPage.Content>
         <StackLayout>
             <Label 
-                Text="{Binding Title}"
-                Margin="10"
-                FontSize="Large"/>
+                FontSize="Medium"
+                TextColor="Gray">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Action : "/>
+                        <Span Text="{Binding Title}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label 
+                FontSize="Medium"
+                TextColor="Gray">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Context : "/>
+                        <Span Text="{Binding ActionContext.Title}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <Label 
                 Text="{Binding StartTime, StringFormat='Start time {0:hh\\:mm\\:ss}'}"
                 Margin="10"

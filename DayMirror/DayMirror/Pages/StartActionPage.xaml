@@ -7,8 +7,9 @@
              x:Class="DayMirror.StartActionPage">
     <StackLayout>
         <Entry 
-                Placeholder="Describe what you are going to do"
-                Text="{Binding Title}"/>
+            Placeholder="Describe what you are going to do"
+            Text="{Binding Title}"
+            TextChanged="OnActionTitleTextChanged"/>
 
         <StackLayout Orientation="Horizontal">
             <Button 

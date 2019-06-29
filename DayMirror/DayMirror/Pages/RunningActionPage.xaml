@@ -9,9 +9,22 @@
         <StackLayout>
             <Label 
                 Text="{Binding Title}"
-                HorizontalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
                 FontSize="Large"
-                Margin="0, 40"/>
+                Margin="0,10"
+                TextColor="Black"/>
+            <Label 
+                FontSize="Medium"
+                TextColor="Gray"
+                HorizontalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="[ "/>
+                        <Span Text="{Binding ActionContext.Title}"/>
+                        <Span Text=" ]"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <Label 
                 x:Name="Timer"
                 Text="00:00:00"

@@ -5,21 +5,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DayMirror.DayReportPage">
+
+
+    
     <ContentPage.Content>
         <StackLayout>
             <DatePicker
                 DateSelected="OnShowReportDateSelected"/>
             <ListView
                 x:Name="listView"
-                Margin="20"
                 SeparatorVisibility="Default"
                 SeparatorColor="Black"
+                Margin="20"
                 ItemSelected="OnReportItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell
-                            Text="{Binding Title}"
-                            Detail="{Binding ActionContext.Title}"/>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm\\:ss}'}"
+                                           TextColor="Coral"/>
+                                    <Label Text="{Binding EndTime, StringFormat='{0:hh\\:mm\\:ss}' }"
+                                           TextColor="Coral"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Title}"
+                                           TextColor="Black"/>
+                                    <Label Text="{Binding ActionContext.Title}"
+                                           TextColor="Gray"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
