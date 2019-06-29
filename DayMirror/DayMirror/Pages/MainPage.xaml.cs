@@ -1,4 +1,5 @@
 ﻿using DayMirror.Models;
+using DayMirror.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,7 @@ namespace DayMirror
         {
             await Navigation.PushAsync(new StartActionPage()
             {
-                BindingContext = new UserAction()
+                BindingContext = new UserActionViewModel()
             });
         }
 

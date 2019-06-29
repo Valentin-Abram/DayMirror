@@ -19,7 +19,7 @@
                     <DataTemplate>
                         <TextCell
                             Text="{Binding Title}"
-                            Detail="{Binding FullTimeInfo}"/>
+                            Detail="{Binding ActionContext.Title}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

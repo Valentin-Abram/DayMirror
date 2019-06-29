@@ -1,5 +1,6 @@
 ﻿using DayMirror.Database;
 using DayMirror.Models;
+using DayMirror.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +33,19 @@ namespace DayMirror
 
         async void OnStopActivityButtonClicked(object sender, EventArgs e)
         {
-            var action = ((UserAction)BindingContext);
+            var action = ((UserActionViewModel)BindingContext);
             action.EndTime = DateTime.Now.TimeOfDay;
 
-            await App.Database.CreateOrUpdateAction(action);
+            var userAction = new UserAction()
+            {
+                Title = action.Title,
+                StartTime = action.StartTime,
+                EndTime = action.EndTime,
+                UserActionContextId = action.ActionContext.ID,
+                Date = DateTime.Now
+            };
+
+            await App.Database.CreateOrUpdateAction(userAction);
 
             await Navigation.PushAsync(new FinishedActionDetails()
             {

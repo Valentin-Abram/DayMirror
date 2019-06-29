@@ -1,4 +1,5 @@
 ﻿using DayMirror.Models;
+using DayMirror.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace DayMirror
 
         async void OnStartActivityButtonClicked(object sender, EventArgs e)
         {
-            var action = (UserAction)BindingContext;
+            var action = (UserActionViewModel)BindingContext;
 
             if (string.IsNullOrEmpty(action.Title))
             {
@@ -29,7 +30,6 @@ namespace DayMirror
             }
 
             action.StartTime = DateTime.Now.TimeOfDay;
-            action.Date = DateTime.Now;
 
             await Navigation.PushAsync(new RunningActionPage()
             {
@@ -41,7 +41,7 @@ namespace DayMirror
         {
             await Navigation.PushAsync(new SelectActivityContext()
             {
-                BindingContext = new UserAction()
+                BindingContext = new UserActionViewModel()
             });
         }
 

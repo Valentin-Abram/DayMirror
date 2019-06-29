@@ -1,4 +1,5 @@
 ﻿using DayMirror.Models;
+using DayMirror.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace DayMirror
         public FinishedActionDetails()
         {
             InitializeComponent();
-            
         }
        
 
@@ -29,21 +29,19 @@ namespace DayMirror
         {
             await Navigation.PushAsync(new StartActionPage()
             {
-                BindingContext = new UserAction()
+                BindingContext = new UserActionViewModel()
             });
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var action = (UserAction)BindingContext;
-
             TimeElapsedLabel.Text =$"Tite elapsed {GetTimeElapsed().ToString(@"hh\:mm\:ss")}";
         }
 
         private TimeSpan GetTimeElapsed()
         {
-            var action = ((UserAction)BindingContext);
+            var action = ((UserActionViewModel)BindingContext);
 
             var timeTotal = new TimeSpan();
 

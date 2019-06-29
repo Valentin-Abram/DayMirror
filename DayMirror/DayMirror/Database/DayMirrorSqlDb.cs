@@ -28,7 +28,9 @@ namespace DayMirror.Database
                 //.Where(d => ((DateTime)d.Date).Date == dateTime.Date)
                 .ToListAsync();
 
-            return result;
+            return result
+                .Where(a => a.Date.Date == dateTime.Date)
+                .ToList();
         }
 
         public Task<int> CreateOrUpdateAction(UserAction action)

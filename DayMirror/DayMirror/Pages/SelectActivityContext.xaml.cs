@@ -1,4 +1,5 @@
 ﻿using DayMirror.Models;
+using DayMirror.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace DayMirror
         {
             var actionContext = e.SelectedItem as UserActionContext;
 
-            ((UserAction)BindingContext).UserActionContextId = actionContext.ID;
+            ((UserActionViewModel)BindingContext).ActionContext = actionContext;
             await Navigation.PushAsync(new StartActionPage()
             {
                 BindingContext = this.BindingContext

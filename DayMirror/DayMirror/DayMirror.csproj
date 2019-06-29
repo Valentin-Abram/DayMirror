@@ -29,25 +29,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="CreateActivityContext.xaml">
+    <EmbeddedResource Update="Pages\CreateActivityContext.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="DayReportPage.xaml">
+    <EmbeddedResource Update="Pages\DayReportPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="EditActivityContext.xaml">
+    <EmbeddedResource Update="Pages\EditActivityContext.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="FinishedActionDetails.xaml">
+    <EmbeddedResource Update="Pages\FinishedActionDetails.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="RunningActionPage.xaml">
+    <EmbeddedResource Update="Pages\RunningActionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="SelectActivityContext.xaml">
+    <EmbeddedResource Update="Pages\SelectActivityContext.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="StartActionPage.xaml">
+    <EmbeddedResource Update="Pages\StartActionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
