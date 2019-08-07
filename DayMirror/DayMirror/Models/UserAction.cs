@@ -16,6 +16,6 @@ namespace DayMirror.Models
         public string Title { get; set; }
 
         [ForeignKey(typeof(UserActionContext))]
-        public int UserActionContextId { get; set; }
+        public int? UserActionContextId { get; set; }
     }
 }

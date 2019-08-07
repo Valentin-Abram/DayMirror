@@ -41,7 +41,7 @@ namespace DayMirror
                 Title = action.Title,
                 StartTime = action.StartTime,
                 EndTime = action.EndTime,
-                UserActionContextId = action.ActionContext.ID,
+                UserActionContextId = action.ActionContext?.ID,
                 Date = DateTime.Now
             };
 

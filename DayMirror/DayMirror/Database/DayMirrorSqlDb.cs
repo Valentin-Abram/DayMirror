@@ -72,8 +72,13 @@ namespace DayMirror.Database
             return _database.Table<UserActionContext>().ToListAsync();
         }
 
-        public Task<UserActionContext> GetActionContextAsync(int ID)
+        public Task<UserActionContext> GetActionContextAsync(int? ID)
         {
+            if (ID is null)
+            {
+                return Task.FromResult<UserActionContext>(null);
+            }
+
             var context = _database.FindAsync<UserActionContext>(ID);
 
             return context;
