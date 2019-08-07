@@ -17,12 +17,14 @@
                 SeparatorVisibility="Default"
                 SeparatorColor="Black"
                 Margin="20"
-                ItemSelected="OnReportItemSelected">
+                ItemSelected="OnReportItemSelected"
+                HeightRequest="100"
+                HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Vertical" MinimumWidthRequest="80">
                                     <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm\\:ss}'}"
                                            TextColor="Coral"/>
                                     <Label Text="{Binding EndTime, StringFormat='{0:hh\\:mm\\:ss}' }"
