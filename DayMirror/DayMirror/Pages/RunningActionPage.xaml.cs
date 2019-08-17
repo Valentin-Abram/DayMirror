@@ -15,25 +15,52 @@ namespace DayMirror
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RunningActionPage : ContentPage
     {
-        public double secondsElapsed { get; private set; }
-
+        private bool isPageActive { get; set; }
         public RunningActionPage()
         {
             InitializeComponent();
-            Device.StartTimer(TimeSpan.FromSeconds(1),TimerTick);
         }
 
-        bool TimerTick()
-        {
-            Timer.Text = TimeSpan.FromSeconds(++secondsElapsed)
-                .ToString(@"hh\:mm\:ss");
 
-            return true;
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            isPageActive = true;
+
+            TimeSpan timeElapsed = DateTime.Now
+                .TimeOfDay.Subtract(GetUserActionModel().StartTime);
+
+            SetTimerValue(timeElapsed);
+
+            double secondsElapsed = timeElapsed.TotalSeconds;
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+                SetTimerValue(TimeSpan.FromSeconds(++secondsElapsed));
+                return isPageActive;
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            isPageActive = false;
+        }
+
+        private void SetTimerValue(TimeSpan time)
+        {
+            Timer.Text = time.ToString(@"hh\:mm\:ss");
+        }
+
+        private UserActionViewModel GetUserActionModel()
+        {
+            return ((UserActionViewModel)BindingContext);
         }
 
         async void OnStopActivityButtonClicked(object sender, EventArgs e)
         {
-            var action = ((UserActionViewModel)BindingContext);
+            var action = GetUserActionModel();
             action.EndTime = DateTime.Now.TimeOfDay;
 
             var userAction = new UserAction()
@@ -53,6 +80,5 @@ namespace DayMirror
             });
         }
 
-       
     }
 }
