@@ -51,11 +51,15 @@ namespace DayMirror
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(e.Message);
             }
 
             return timeTotal;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

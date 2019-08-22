@@ -19,7 +19,6 @@ namespace DayMirror
         public RunningActionPage()
         {
             InitializeComponent();
-            DeviceDisplay.KeepScreenOn = true;
         }
 
 
@@ -29,8 +28,11 @@ namespace DayMirror
 
             isPageActive = true;
 
+            UserActionViewModel actionModel = GetUserActionModel();
+            actionModel.Status = UserActionStatus.Running;
+
             TimeSpan timeElapsed = DateTime.Now
-                .TimeOfDay.Subtract(GetUserActionModel().StartTime);
+                .TimeOfDay.Subtract(actionModel.StartTime);
 
             SetTimerValue(timeElapsed);
 
@@ -40,6 +42,13 @@ namespace DayMirror
                 SetTimerValue(TimeSpan.FromSeconds(++secondsElapsed));
                 return isPageActive;
             });
+
+            Task.Run(async () => 
+            {
+                var action = await App.Database.CreateOrUpdateAction(actionModel.GetAction());
+                actionModel  = await UserActionViewModel.FromAction(action);
+            }).GetAwaiter().GetResult();
+
         }
 
         protected override void OnDisappearing()
@@ -61,25 +70,22 @@ namespace DayMirror
 
         async void OnStopActivityButtonClicked(object sender, EventArgs e)
         {
-            var action = GetUserActionModel();
-            action.EndTime = DateTime.Now.TimeOfDay;
+            var actionModel = GetUserActionModel();
+            actionModel.EndTime = DateTime.Now.TimeOfDay;
+            actionModel.Status = UserActionStatus.Finished;
 
-            var userAction = new UserAction()
-            {
-                Title = action.Title,
-                StartTime = action.StartTime,
-                EndTime = action.EndTime,
-                UserActionContextId = action.ActionContext?.ID,
-                Date = DateTime.Now
-            };
-
-            await App.Database.CreateOrUpdateAction(userAction);
+            await App.Database.CreateOrUpdateAction(actionModel.GetAction());
 
             await Navigation.PushAsync(new FinishedActionDetails()
             {
-                BindingContext = action,
+                BindingContext = actionModel,
             });
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            // Prevent from go back
+            return true;
+        }
     }
 }

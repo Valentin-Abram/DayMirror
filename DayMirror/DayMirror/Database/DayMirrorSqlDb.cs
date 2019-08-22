@@ -28,20 +28,49 @@ namespace DayMirror.Database
                 //.Where(d => ((DateTime)d.Date).Date == dateTime.Date)
                 .ToListAsync();
 
+            var actions = result
+                .Where(a => a.Date.Date == dateTime.Date)
+                .ToList(); ;
+
+            return actions;
+        }
+
+        public List<UserAction> GetDayActions(DateTime dateTime)
+        {
+            var result = _database.Table<UserAction>()
+                .ToListAsync().GetAwaiter().GetResult();
+
             return result
                 .Where(a => a.Date.Date == dateTime.Date)
                 .ToList();
         }
 
-        public Task<int> CreateOrUpdateAction(UserAction action)
+        public async Task<UserAction> CreateUserAction(UserAction action)
+        {
+            action.Date = DateTime.Now;
+            await _database.InsertAsync(action);
+
+            return action;
+        }
+
+        public async Task<UserAction> UpdateUserAction(UserAction action)
+        {
+            await _database.UpdateAsync(action);
+            return action;
+        }
+
+        [Obsolete]
+        public async Task<UserAction> CreateOrUpdateAction(UserAction action)
         {
             if (action.ID == 0)
             {
-                return _database.InsertAsync(action);
+                await CreateUserAction(action);
+                return action;
             }
             else
             {
-                return _database.UpdateAsync(action);
+                await UpdateUserAction(action);
+                return action;
             }
         }
 

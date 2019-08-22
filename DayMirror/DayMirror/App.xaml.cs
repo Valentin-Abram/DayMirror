@@ -1,8 +1,10 @@
-﻿
-using DayMirror.Database;
+﻿using DayMirror.Database;
+using DayMirror.ViewModel;
 using SQLite;
 using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -34,7 +36,8 @@ namespace DayMirror
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            TryRestoreRunningAction();
+
         }
 
         protected override void OnSleep()
@@ -42,9 +45,31 @@ namespace DayMirror
             // Handle when your app sleeps
         }
 
+        
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            TryRestoreRunningAction();
         }
+
+        private async Task TryRestoreRunningAction()
+        {
+            var actions = await App.Database.GetDayActionsAsync(DateTime.Now);
+
+            var runningAction = actions
+                .Where(a => a.Status == Models.UserActionStatus.Running)
+                .FirstOrDefault();
+
+            if (runningAction != null && MainPage.Navigation.NavigationStack.Count == 1)
+            {
+                var actionModel = await UserActionViewModel.FromAction(runningAction);
+
+                await MainPage.Navigation.PushAsync(new RunningActionPage()
+                {
+                    BindingContext = actionModel
+                });
+            }
+
+        }
+
     }
 }

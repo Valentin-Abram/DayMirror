@@ -22,6 +22,7 @@ namespace DayMirror
 
         async void OnCreateActionButtonClicked(object sender, EventArgs e)
         {
+            
             await Navigation.PushAsync(new StartActionPage()
             {
                 BindingContext = new UserActionViewModel()
@@ -31,6 +32,9 @@ namespace DayMirror
         async void OnDayMirrorButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new DayReportPage());
+
         }
+
+
     }
 }

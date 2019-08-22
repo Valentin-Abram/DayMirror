@@ -14,6 +14,7 @@ namespace DayMirror.Models
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string Title { get; set; }
+        public UserActionStatus Status { get; set; }
 
         [ForeignKey(typeof(UserActionContext))]
         public int? UserActionContextId { get; set; }
