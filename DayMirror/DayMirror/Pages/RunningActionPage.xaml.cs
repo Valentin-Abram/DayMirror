@@ -46,7 +46,7 @@ namespace DayMirror
             Task.Run(async () => 
             {
                 var action = await App.Database.CreateOrUpdateAction(actionModel.GetAction());
-                actionModel  = await UserActionViewModel.FromAction(action);
+                await UpdateActionModel(action);
             }).GetAwaiter().GetResult();
 
         }
@@ -86,6 +86,17 @@ namespace DayMirror
         {
             // Prevent from go back
             return true;
+        }
+
+        private async Task UpdateActionModel(UserAction userAction)
+        {
+            ((UserActionViewModel)this.BindingContext).Id = userAction.ID;
+            ((UserActionViewModel)this.BindingContext).Title = userAction.Title;
+            ((UserActionViewModel)this.BindingContext).StartTime = userAction.StartTime;
+            ((UserActionViewModel)this.BindingContext).EndTime = userAction.EndTime;
+            ((UserActionViewModel)this.BindingContext).Date = userAction.Date;
+            ((UserActionViewModel)this.BindingContext).Status = userAction.Status;
+            ((UserActionViewModel)this.BindingContext).ActionContext = await App.Database.GetActionContextAsync(userAction.UserActionContextId);
         }
     }
 }
