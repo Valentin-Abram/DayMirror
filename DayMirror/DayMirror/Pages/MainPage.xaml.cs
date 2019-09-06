@@ -1,4 +1,5 @@
 ﻿using DayMirror.Models;
+using DayMirror.Pages.Report;
 using DayMirror.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,7 @@ namespace DayMirror
 
         async void OnDayMirrorButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new DayReportPage());
-
+            await Navigation.PushAsync(new ReportMenu());
         }
 
 

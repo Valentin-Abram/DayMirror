@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DayMirror.Models;
 using SQLite;
 using System.Linq;
-
+using DayMirror.Pages.Report;
 
 namespace DayMirror.Database
 {
@@ -18,6 +18,34 @@ namespace DayMirror.Database
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<UserActionContext>().Wait();
             _database.CreateTableAsync<UserAction>().Wait();
+        }
+
+
+        public async Task<List<StatisticData>> GetUserActionStatistic(DateTime dateFrom, DateTime dateTo)
+        {
+            var actions = await _database.Table<UserAction>()
+                .ToListAsync();
+
+            var report = actions
+                .Where(a => a.Date.Date >= dateFrom.Date && a.Date.Date <= dateTo.Date)
+                .GroupBy(a => a.UserActionContextId)
+                .Select(a => a);
+
+            List<StatisticData> statisticData = new List<StatisticData>();
+
+            foreach (var item in report)
+            {
+                var actionContext = await GetActionContextAsync(item.Key);
+
+                statisticData.Add(new StatisticData
+                {
+                    ActionContextName = actionContext?.Title,
+                    TimeDeliveredMinutes = TimeSpan.FromMinutes(item.Sum(a => (a.EndTime.Subtract(a.StartTime)).TotalMinutes))
+                }
+                );
+            }
+
+            return statisticData;
         }
 
 

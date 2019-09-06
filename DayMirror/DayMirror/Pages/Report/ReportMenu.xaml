@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DayMirror.Pages.Report.ReportMenu">
+    <ContentPage.Content>
+        <StackLayout
+            VerticalOptions="EndAndExpand">
+            <Label 
+                Text="Current"
+                HorizontalOptions="CenterAndExpand"
+                FontSize="Large"/>
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand">
+                <Button 
+                    Text="Day"
+                    Clicked="OnDayReportButtonClicked"/>
+                <Button 
+                    Text="Week"
+                    Clicked="OnWeekReportButtonClicked"/>
+                <Button 
+                    Text="Month"
+                    Clicked="OnMonthReportButtonClicked"/>
+            </StackLayout>
+            <Label 
+                Text="or"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"/>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Start date"/>
+                    <DatePicker 
+                        x:Name="DateFrom"
+                        VerticalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="End date"/>
+                    <DatePicker 
+                        x:Name="DateTo"
+                        VerticalOptions="EndAndExpand"/>
+                </StackLayout>
+            </StackLayout>
+            <Button 
+                Text="Get"
+                Clicked="OnGetReportButtonClicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

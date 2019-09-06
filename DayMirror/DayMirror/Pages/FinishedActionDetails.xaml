@@ -9,7 +9,8 @@
         <StackLayout>
             <Label 
                 FontSize="Medium"
-                TextColor="Gray">
+                TextColor="Gray"
+                Margin="10">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="Action : "/>
@@ -19,7 +20,8 @@
             </Label>
             <Label 
                 FontSize="Medium"
-                TextColor="Gray">
+                TextColor="Gray"
+                Margin="10">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="Context : "/>

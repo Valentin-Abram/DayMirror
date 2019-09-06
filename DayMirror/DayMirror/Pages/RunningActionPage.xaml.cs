@@ -47,7 +47,7 @@ namespace DayMirror
             {
                 var action = await App.Database.CreateOrUpdateAction(actionModel.GetAction());
                 await UpdateActionModel(action);
-            }).GetAwaiter().GetResult();
+            });
 
         }
 

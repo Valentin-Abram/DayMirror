@@ -12,7 +12,7 @@
                 VerticalOptions="Start"
                 Clicked="OnCreateActionButtonClicked"
                 />
-        <Button Text="Day Mirror"
+        <Button Text="Reports"
                 VerticalOptions="Start"
                 Clicked="OnDayMirrorButtonClicked"
                 />

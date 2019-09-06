@@ -24,7 +24,7 @@ namespace DayMirror.ViewModel
                 Title = Title,
                 StartTime = StartTime,
                 EndTime = EndTime,
-                UserActionContextId = ActionContext.ID,
+                UserActionContextId = ActionContext?.ID,
                 Status = Status,
                 Date = Date
             };

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DayMirror.Pages.Report.DayReportPage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <DatePicker
+                DateSelected="OnShowReportDateSelected"/>
+                <Frame BorderColor="Black">
+                    <ScrollView HeightRequest="100">
+                    <ListView
+                        x:Name="statisticListView"
+                        SeparatorVisibility="Default"
+                        SeparatorColor="Gray"
+                        Margin="20"
+                        HeightRequest="100"
+                        HasUnevenRows="True">   
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Clicked="OnEdit" CommandParameter="{Binding .}"
+                                            Text="Edit" />
+                                        <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}"
+                                            Text="Delete" IsDestructive="True" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding ActionContextName}"/>
+                                        <Label Text="{Binding TimeDeliveredMinutes, StringFormat='{0:hh\\:mm\\:ss}'}"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+                </Frame>
+            <ListView
+                x:Name="listView"
+                SeparatorVisibility="Default"
+                SeparatorColor="Black"
+                Margin="20"
+                ItemSelected="OnReportItemSelected"
+                HeightRequest="100"
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" MinimumWidthRequest="80">
+                                    <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm\\:ss}'}"
+                                           TextColor="Coral"/>
+                                    <Label Text="{Binding EndTime, StringFormat='{0:hh\\:mm\\:ss}' }"
+                                           TextColor="Coral"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Title}"
+                                           TextColor="Black"/>
+                                    <Label Text="{Binding ActionContext.Title}"
+                                           TextColor="Gray"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

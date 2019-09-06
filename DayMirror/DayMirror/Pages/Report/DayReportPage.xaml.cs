@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DayMirror
+namespace DayMirror.Pages.Report
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DayReportPage : ContentPage
@@ -35,6 +35,7 @@ namespace DayMirror
 
         async void UpdateDayReportActionList(DateTime date)
         {
+            statisticListView.ItemsSource = await App.Database.GetUserActionStatistic(date, date);
             listView.ItemsSource = await GetActionViewModels(date);
         }
 
@@ -42,6 +43,19 @@ namespace DayMirror
         {
             if (e.SelectedItem == null) return;
             ((ListView)sender).SelectedItem = null;
+        }
+
+        async void OnEdit(object sender, EventArgs e)
+        {
+
+        }
+
+        async void OnDelete(object sender, EventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            var actionViewModel = menuItem.CommandParameter as UserActionViewModel;
+
+            await App.Database.DeleteAction(actionViewModel.GetAction());
         }
 
         private async Task<List<UserActionViewModel>> GetActionViewModels(DateTime date)
