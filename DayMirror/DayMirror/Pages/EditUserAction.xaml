@@ -9,17 +9,25 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Action name" />
-            <Editor />
+            <Editor Text="{Binding Title}" />
             <Label Text="Action context" />
-            <Picker x:Name="ActionContextPicker" />
+            <Picker
+                x:Name="ActionContextPicker"
+                ItemDisplayBinding="{Binding Path=Title}" />
 
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Text="Save" />
-                <Button Grid.Column="1" Text="Cancel" />
+                <Button
+                    Grid.Column="0"
+                    Clicked="Save_Button_Clicked"
+                    Text="Save" />
+                <Button
+                    Grid.Column="1"
+                    Clicked="Cancel_Button_Clicked"
+                    Text="Cancel" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

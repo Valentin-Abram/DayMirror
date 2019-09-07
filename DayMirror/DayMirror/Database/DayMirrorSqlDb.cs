@@ -20,6 +20,10 @@ namespace DayMirror.Database
             _database.CreateTableAsync<UserAction>().Wait();
         }
 
+        public Task<UserAction> GetUserAction(int id)
+        {
+            return _database.GetAsync<UserAction>(id);
+        }
 
         public async Task<List<StatisticData>> GetUserActionStatistic(DateTime dateFrom, DateTime dateTo)
         {
@@ -104,7 +108,7 @@ namespace DayMirror.Database
 
         public Task<int> DeleteAction(UserAction action)
         {
-            return _database.DeleteAsync<UserAction>(action);
+            return _database.DeleteAsync<UserAction>(action.ID);
         }
 
         public Task<int> CreateOrUpdateActionContextAsync(UserActionContext actionContext)

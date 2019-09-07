@@ -1,11 +1,6 @@
-﻿using DayMirror.Database;
-using DayMirror.Models;
-using DayMirror.ViewModel;
+﻿using DayMirror.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -47,7 +42,12 @@ namespace DayMirror.Pages.Report
 
         async void OnEdit(object sender, EventArgs e)
         {
+            var menuItem = sender as MenuItem;
+            var actionViewModel = menuItem.CommandParameter as UserActionViewModel;
 
+            await Navigation.PushAsync(new EditUserAction() {
+                BindingContext = actionViewModel
+            });
         }
 
         async void OnDelete(object sender, EventArgs e)
@@ -55,7 +55,8 @@ namespace DayMirror.Pages.Report
             var menuItem = sender as MenuItem;
             var actionViewModel = menuItem.CommandParameter as UserActionViewModel;
 
-            await App.Database.DeleteAction(actionViewModel.GetAction());
+            App.Database.DeleteAction(actionViewModel.GetAction()).Wait();
+            UpdateDayReportActionList(DateTime.Now);
         }
 
         private async Task<List<UserActionViewModel>> GetActionViewModels(DateTime date)
@@ -68,10 +69,13 @@ namespace DayMirror.Pages.Report
             {
                 actionViewModels.Add(new UserActionViewModel
                 {
+                    Id = item.ID,
                     Title = item.Title,
                     StartTime = item.StartTime,
                     EndTime = item.EndTime,
-                    ActionContext = await App.Database.GetActionContextAsync(item.UserActionContextId)
+                    ActionContext = await App.Database.GetActionContextAsync(item.UserActionContextId),
+                    Date = item.Date,
+                    Status = item.Status
                 });
             }
 

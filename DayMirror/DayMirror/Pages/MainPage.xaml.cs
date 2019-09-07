@@ -1,12 +1,7 @@
-﻿using DayMirror.Models;
-using DayMirror.Pages.Report;
-using DayMirror.ViewModel;
+﻿using DayMirror.Pages.Report;
+using DayMirror.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DayMirror
