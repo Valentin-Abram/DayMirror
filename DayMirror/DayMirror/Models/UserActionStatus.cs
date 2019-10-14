@@ -7,6 +7,8 @@ namespace DayMirror.Models
     public enum UserActionStatus
     {
         Running,
-        Finished
+        Finished,
+        Pending,
+        Created
     }
 }

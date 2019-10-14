@@ -1,4 +1,5 @@
-﻿using DayMirror.Pages.Report;
+﻿using DayMirror.Pages;
+using DayMirror.Pages.Report;
 using DayMirror.ViewModels;
 using System;
 using System.ComponentModel;
@@ -16,20 +17,22 @@ namespace DayMirror
             InitializeComponent();
         }
 
-        async void OnCreateActionButtonClicked(object sender, EventArgs e)
+        private async void OnCreateActionButtonClicked(object sender, EventArgs e)
         {
-            
             await Navigation.PushAsync(new StartActionPage()
             {
                 BindingContext = new UserActionViewModel()
             });
         }
 
-        async void OnDayMirrorButtonClicked(object sender, EventArgs e)
+        private async void OnDayMirrorButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ReportMenu());
         }
 
-
+        private async void OnToDoButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ToDoListPage());
+        }
     }
 }

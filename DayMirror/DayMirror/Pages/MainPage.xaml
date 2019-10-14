@@ -16,6 +16,10 @@
                 VerticalOptions="Start"
                 Clicked="OnDayMirrorButtonClicked"
                 />
+        <Button Text="ToDo"
+                VerticalOptions="Start"
+                Clicked="OnToDoButtonClicked"
+                />
     </StackLayout>
 
 </ContentPage>

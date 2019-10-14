@@ -67,6 +67,13 @@ namespace DayMirror.Database
             return actions;
         }
 
+        public Task<List<UserAction>> GetToDoListAsync()
+        {
+            return _database.Table<UserAction>()
+                .Where(a => a.StartTime == default(TimeSpan))
+                .ToListAsync();
+        }
+
         public List<UserAction> GetDayActions(DateTime dateTime)
         {
             var result = _database.Table<UserAction>()

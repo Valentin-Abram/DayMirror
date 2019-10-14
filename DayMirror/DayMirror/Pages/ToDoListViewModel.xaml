@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DayMirror.Pages.ToDoListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:DayMirror.ViewModels"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <vm:DisplayToDoViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="AddButton">
+            <Frame CornerRadius="50">
+                <ContentPresenter />
+            </Frame>
+        </ControlTemplate>
+    </ContentPage.Resources>
+    <StackLayout>
+        <ListView
+            Margin="20"
+            HasUnevenRows="True"
+            HeightRequest="100"
+            ItemsSource="{Binding ToDoList}"
+            SeparatorColor="Gray"
+            SeparatorVisibility="Default">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                Text="{Binding Title}"
+                                TextColor="Black" />
+                            <Label Text="{Binding ActionContext.Title}" TextColor="Gray" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout HorizontalOptions="End">
+            <Button
+                Margin="10"
+                BackgroundColor="Blue"
+                Clicked="Button_Clicked"
+                CornerRadius="50"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="+"
+                TextColor="White"
+                WidthRequest="50" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
