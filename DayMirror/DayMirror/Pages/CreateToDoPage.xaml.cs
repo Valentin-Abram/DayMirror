@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DayMirror.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,17 @@ namespace DayMirror.Pages
         public CreateToDoPage()
         {
             InitializeComponent();
+            SubscribeToMessages();
+        }
+
+        private void SubscribeToMessages()
+        {
+            MessagingCenter.Subscribe<CreateToDoViewModel, string>(this, "Validation", ShowMessage);
+        }
+
+        private void ShowMessage(object sender, string message)
+        {
+            DisplayAlert("Validation error", message, "Ok");
         }
     }
 }

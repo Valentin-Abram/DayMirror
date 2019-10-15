@@ -53,7 +53,6 @@ namespace DayMirror.ViewModels
         }
 
 
-
         private async Task LoadData()
         {
             foreach (var item in await App.Database.GetActionContextsAsync())
@@ -62,12 +61,25 @@ namespace DayMirror.ViewModels
             }
         }
 
-        public void CreateToDo(object )
+        public void CreateToDo()
         {
+            if (string.IsNullOrWhiteSpace(this.title))
+            {
+                SendMessage("Validation", "Title can't be empty");
+            }
+
+            var userAction = new UserAction();
+            userAction.Title = this.title;
+            userAction.UserActionContextId = this.context?.ID;
 
         }
 
-        #region 
+        private void SendMessage(string messageName, string message)
+        { 
+            MessagingCenter.Send<CreateToDoViewModel, string>(this, messageName, message);
+        }
+
+        #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -77,6 +89,6 @@ namespace DayMirror.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
+        #endregion
     }
 }
