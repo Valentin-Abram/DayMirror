@@ -29,8 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\CreateToDoPage.xaml.cs">
+    <Compile Update="Pages\ToDo\CreateToDoPage.xaml.cs">
       <DependentUpon>CreateToDoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\ToDo\ToDoListPage.xaml.cs">
+      <DependentUpon>ToDoListPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -38,7 +41,7 @@
     <EmbeddedResource Update="Pages\CreateActivityContext.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\CreateToDoPage.xaml">
+    <EmbeddedResource Update="Pages\ToDo\CreateToDoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\EditUserAction.xaml">
@@ -68,7 +71,7 @@
     <EmbeddedResource Update="Pages\StartActionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\ToDoListViewModel.xaml">
+    <EmbeddedResource Update="Pages\ToDo\ToDoListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

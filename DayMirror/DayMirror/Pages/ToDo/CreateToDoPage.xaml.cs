@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DayMirror.Pages
+namespace DayMirror.Pages.ToDo
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateToDoPage : ContentPage
