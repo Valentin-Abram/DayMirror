@@ -21,10 +21,23 @@ namespace DayMirror.Pages.ToDo
 
         private void SubscribeToMessages()
         {
-            MessagingCenter.Subscribe<CreateToDoViewModel, string>(this, "Validation", ShowMessage);
+            MessagingCenter.Subscribe<CreateToDoViewModel, string>(this, "Validation", ShowValidationMessage);
+            MessagingCenter.Subscribe<CreateToDoViewModel, string>(this, "Creation", PopPage);
         }
 
-        private void ShowMessage(object sender, string message)
+        private void PopPage(CreateToDoViewModel sender, string message)
+        {
+            if (message == "Ok")
+            {
+                Navigation.PopAsync();
+            }
+            else
+            {
+                DisplayAlert("Error", message, "Ok");
+            }
+        }
+
+        private void ShowValidationMessage(object sender, string message)
         {
             DisplayAlert("Validation error", message, "Ok");
         }

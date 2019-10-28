@@ -1,4 +1,6 @@
-﻿using DayMirror.Models;
+﻿using DayMirror.Enums.UserAction;
+using DayMirror.Models;
+using DayMirror.Models.UserAction;
 using DayMirror.ViewModels;
 using System;
 using System.Threading.Tasks;

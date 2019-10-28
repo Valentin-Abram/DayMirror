@@ -3,6 +3,7 @@
     x:Class="DayMirror.Pages.ToDo.ToDoListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:b="clr-namespace:Xamarin.Android.Net;assembly=Mono.Android"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:DayMirror.ViewModels"
@@ -18,18 +19,12 @@
         </ControlTemplate>
     </ContentPage.Resources>
     <StackLayout>
-        <Label
-            x:Name="EmptyListMessage"
-            Margin="0,50,0,0"
-            HorizontalOptions="Center"
-            IsVisible="False"
-            Text="You have no todo. Add one ;) "
-            VerticalOptions="Center" />
         <ListView
             Margin="20"
             HasUnevenRows="True"
             HeightRequest="100"
             ItemsSource="{Binding ToDoList}"
+            SelectedItem="{Binding SelectedItem}"
             SeparatorColor="Gray"
             SeparatorVisibility="Default">
             <ListView.ItemTemplate>

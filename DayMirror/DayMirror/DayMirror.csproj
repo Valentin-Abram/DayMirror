@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Pages\ActionStates\RunningActionPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
     <Compile Update="Pages\ToDo\CreateToDoPage.xaml.cs">
       <DependentUpon>CreateToDoPage.xaml</DependentUpon>
     </Compile>

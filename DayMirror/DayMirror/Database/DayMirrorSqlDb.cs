@@ -6,6 +6,7 @@ using DayMirror.Models;
 using SQLite;
 using System.Linq;
 using DayMirror.Pages.Report;
+using DayMirror.Models.UserAction;
 
 namespace DayMirror.Database
 {

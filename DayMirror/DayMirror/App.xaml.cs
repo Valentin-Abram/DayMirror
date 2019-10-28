@@ -1,4 +1,5 @@
 ﻿using DayMirror.Database;
+using DayMirror.Enums.UserAction;
 using DayMirror.ViewModels;
 using System;
 using System.IO;
@@ -54,7 +55,7 @@ namespace DayMirror
             var actions = await App.Database.GetDayActionsAsync(DateTime.Now);
 
             var runningAction = actions
-                .Where(a => a.Status == Models.UserActionStatus.Running)
+                .Where(a => a.Status == UserActionStatus.Running)
                 .FirstOrDefault();
 
             if (runningAction != null && MainPage.Navigation.NavigationStack.Count == 1)

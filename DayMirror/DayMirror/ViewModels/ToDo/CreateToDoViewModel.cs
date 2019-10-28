@@ -1,4 +1,6 @@
-﻿using DayMirror.Models;
+﻿using DayMirror.Enums.UserAction;
+using DayMirror.Models;
+using DayMirror.Models.UserAction;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -66,12 +68,18 @@ namespace DayMirror.ViewModels
             if (string.IsNullOrWhiteSpace(this.title))
             {
                 SendMessage("Validation", "Title can't be empty");
+                return ;
             }
 
             var userAction = new UserAction();
             userAction.Title = this.title;
             userAction.UserActionContextId = this.context?.ID;
+            userAction.Date = DateTime.Now;
+            userAction.Status = UserActionStatus.Created;
 
+            App.Database.CreateUserAction(userAction);
+
+            SendMessage("Creation", "Ok");
         }
 
         private void SendMessage(string messageName, string message)

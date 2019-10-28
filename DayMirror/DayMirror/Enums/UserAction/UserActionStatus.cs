@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DayMirror.Models
+namespace DayMirror.Enums.UserAction
 {
     public enum UserActionStatus
     {

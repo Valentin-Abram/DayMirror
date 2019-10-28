@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DayMirror.Pages.ActionStates.RunningActionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:DayMirror.ViewModels.ActionStates"
+    mc:Ignorable="d">
+
+    <ContentPage.BindingContext>
+        <vm:RunningActionViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label
+                Margin="0,10"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                Text="{Binding Title}"
+                TextColor="Black" />
+            <Label
+                FontSize="Medium"
+                HorizontalOptions="CenterAndExpand"
+                TextColor="Gray">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="[ " />
+                        <Span Text="{Binding ActionContextTitle}" />
+                        <Span Text=" ]" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label
+                x:Name="Timer"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                Text="00:00:00"
+                VerticalOptions="CenterAndExpand" />
+
+            <Button Command="{Binding FinishActionCommand}" Text="Stop" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

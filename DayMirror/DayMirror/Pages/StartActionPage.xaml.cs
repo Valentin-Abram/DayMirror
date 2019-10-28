@@ -21,21 +21,27 @@ namespace DayMirror
 
         async void OnStartActivityButtonClicked(object sender, EventArgs e)
         {
-            var action = (UserActionViewModel)BindingContext;
+            var actionVM = (UserActionViewModel)BindingContext;
 
-            if (string.IsNullOrEmpty(action.Title))
+
+            if (string.IsNullOrEmpty(actionVM.Title))
             {
                 await DisplayAlert("", "Please enter action name", "Cancel");
                 return;
             }
+            
+            actionVM.StartTime = DateTime.Now.TimeOfDay;
+            
+            var userAction = await App.Database.CreateUserAction(actionVM.GetAction());
+            var actionContextTitle = actionVM.ActionContext.Title;
 
-            action.StartTime = DateTime.Now.TimeOfDay;
-
-            await Navigation.PushAsync(new RunningActionPage()
+            await Navigation.PushAsync(new Pages.ActionStates.RunningActionPage()
             {
-                BindingContext = action
+                BindingContext = new ViewModels.ActionStates.RunningActionViewModel(userAction.ID, userAction.Title, actionContextTitle)
             });
         }
+
+
 
         async void OnAddContextButtonClicked(object sender, EventArgs e)
         {

@@ -1,10 +1,11 @@
-﻿using SQLite;
+﻿using DayMirror.Enums.UserAction;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DayMirror.Models
+namespace DayMirror.Models.UserAction
 {
     public class UserAction
     {
