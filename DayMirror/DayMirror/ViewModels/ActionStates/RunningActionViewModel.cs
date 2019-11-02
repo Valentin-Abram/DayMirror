@@ -52,13 +52,16 @@ namespace DayMirror.ViewModels.ActionStates
             {
                 return timeElapsed;
             }
-            private set
+            set
             {
                 timeElapsed = value;
                 NotifyPropertyChanged();
             }
         }
 
+        private TimeSpan StartTime = DateTime.Now.TimeOfDay;
+        private bool isTimerActive = false;
+        
         public ICommand FinishActionCommand { get; private set; }
 
         public RunningActionViewModel()
@@ -106,6 +109,21 @@ namespace DayMirror.ViewModels.ActionStates
                 MessagingCenter.Send<RunningActionViewModel,int>(this, "FailedToFinisActionMessage", this.Id);
             }
 
+        }
+
+        public void StartTimer()
+        {
+            isTimerActive = true;
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+                TimeElapsed = DateTime.Now.TimeOfDay.Subtract(StartTime);
+                return isTimerActive;
+            });
+        }
+
+        public void StopTimer()
+        {
+            isTimerActive = false;
         }
 
         private void RegisterCommands()

@@ -1,10 +1,6 @@
-﻿using DayMirror.Enums.UserAction;
-using DayMirror.Models;
-using DayMirror.Models.UserAction;
+﻿using DayMirror.Models.UserAction;
 using DayMirror.ViewModels;
 using DayMirror.ViewModels.ActionStates;
-using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +15,18 @@ namespace DayMirror.Pages.ActionStates
             SubscribeToMessages();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as RunningActionViewModel).StartTimer();
+        }
+
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            (BindingContext as RunningActionViewModel).StopTimer();
+        }
 
         private void SubscribeToMessages()
         {
