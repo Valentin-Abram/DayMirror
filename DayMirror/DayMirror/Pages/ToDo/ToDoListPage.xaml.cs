@@ -43,9 +43,11 @@ namespace DayMirror.Pages.ToDo
                 Title = userActionDM.Title
             };
 
+            var userAction = userActionVM.GetAction();
+
             Navigation.PushAsync(new Pages.ActionStates.RunningActionPage()
             {
-                BindingContext = new RunningActionViewModel(userActionDM.ID, userActionDM.Title, userActionDM.ActionContext?.Title)
+                BindingContext = new RunningActionViewModel(userAction, userActionDM.ActionContext)
             });
         }
 

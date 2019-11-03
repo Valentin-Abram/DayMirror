@@ -14,35 +14,22 @@ namespace DayMirror.ViewModels.ActionStates
 {
     class RunningActionViewModel : INotifyPropertyChanged
     {
-        private int Id { get; set; }
-
-        private string title;
-        public string Title 
+        private UserAction _userAction;
+        public UserAction UserAction
         {
-            get 
-            {
-                return title;
+            get { return _userAction; }
+            set 
+            { 
+                _userAction = value; 
+                NotifyPropertyChanged(); 
             }
-            set
-            {
-                title = value;
-                NotifyPropertyChanged();
-            }
-        
         }
 
-        private string actionConextTitle;
-        public string ActionContextTitle 
+        private UserActionContext _userActionContext;
+        public UserActionContext UserActionContext
         {
-            get
-            {
-                return actionConextTitle;
-            }   
-            set 
-            {
-                actionConextTitle = value;
-                NotifyPropertyChanged();
-            } 
+            get { return _userActionContext; }
+            set { _userActionContext = value;}
         }
 
         private TimeSpan timeElapsed;
@@ -59,56 +46,62 @@ namespace DayMirror.ViewModels.ActionStates
             }
         }
 
-        private TimeSpan StartTime = DateTime.Now.TimeOfDay;
         private bool isTimerActive = false;
         
         public ICommand FinishActionCommand { get; private set; }
+        public ICommand PauseActionCommand { get; private set; }
 
-        public RunningActionViewModel()
+        public RunningActionViewModel(UserAction userAction, UserActionContext userActionContext = null) 
         {
+            this.UserAction = userAction;
+            this.UserActionContext = userActionContext;
             RegisterCommands();
-        }
-
-        public RunningActionViewModel(int id) : this()
-        {
-            LoadData(id);
-        }
-
-        public RunningActionViewModel(int id, string title, string actionContextTitle) : this()
-        {
-            this.Id = id;
-            this.title = title; 
-            this.actionConextTitle = actionContextTitle;
-        }
-
-
-        private async Task LoadData(int id)
-        {
-            var userAction = await App.Database.GetUserAction(this.Id);
-            var actionContext = await App.Database.GetActionContextAsync(userAction.UserActionContextId);
-
-            this.Id = id;
-            this.Title = userAction.Title;
-            this.ActionContextTitle = actionContext?.Title;
+            SetupActionForRun();
         }
 
         private async void FinishAction()
         {
-            var userAction = await App.Database.GetUserAction(this.Id);
-            userAction.StartTime.Add(timeElapsed);
-            userAction.Status = UserActionStatus.Finished;
+            this.UserAction.EndTime = DateTime.Now.TimeOfDay;
+            this.UserAction.Status = UserActionStatus.Finished;
 
-            userAction = await App.Database.UpdateUserAction(userAction);
+            await App.Database.UpdateUserAction(this.UserAction);
 
-            if (userAction != null && userAction.Status == UserActionStatus.Finished)
+            if (this.UserAction.Status == UserActionStatus.Finished)
             {
-                MessagingCenter.Send<RunningActionViewModel, UserAction>(this, "FinishedActionMessage", userAction);
+                MessagingCenter.Send<RunningActionViewModel, UserAction>(this, "FinishedActionMessage", this.UserAction);
             }
             else
             { 
-                MessagingCenter.Send<RunningActionViewModel,int>(this, "FailedToFinisActionMessage", this.Id);
+                MessagingCenter.Send<RunningActionViewModel,int>(this, "FailedToFinisActionMessage", this.UserAction.ID);
             }
+        }
 
+        private async void PauseAction()
+        {
+            this.UserAction.EndTime = DateTime.Now.TimeOfDay;
+            this.UserAction.Status = UserActionStatus.Paused;
+
+            await App.Database.UpdateUserAction(this.UserAction);
+
+            if (this.UserAction.Status == UserActionStatus.Finished)
+            {
+                MessagingCenter.Send<RunningActionViewModel, UserAction>(this, "PausedActionMessage", this.UserAction);
+            }
+            else
+            {
+                MessagingCenter.Send<RunningActionViewModel, int>(this, "FailedToPauseActionMessage", this.UserAction.ID);
+            }
+        }
+
+
+        private async Task SetupActionForRun()
+        {
+            if (this.UserAction.Status != UserActionStatus.Running)
+            { 
+                this.UserAction.StartTime = DateTime.Now.TimeOfDay;
+                this.UserAction.Status = UserActionStatus.Running;
+                await App.Database.UpdateUserAction(this.UserAction);
+            }
         }
 
         public void StartTimer()
@@ -116,7 +109,7 @@ namespace DayMirror.ViewModels.ActionStates
             isTimerActive = true;
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () => {
-                TimeElapsed = DateTime.Now.TimeOfDay.Subtract(StartTime);
+                TimeElapsed = DateTime.Now.TimeOfDay.Subtract(this.UserAction.StartTime);
                 return isTimerActive;
             });
         }
@@ -129,6 +122,7 @@ namespace DayMirror.ViewModels.ActionStates
         private void RegisterCommands()
         {
             FinishActionCommand = new Command(FinishAction);
+            PauseActionCommand = new Command(PauseAction);
         }
 
         #region INotifyPropertyChanged implementation

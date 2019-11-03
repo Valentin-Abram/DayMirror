@@ -6,9 +6,9 @@ namespace DayMirror.Enums.UserAction
 {
     public enum UserActionStatus
     {
+        Created,
         Running,
         Finished,
-        Pending,
-        Created
+        Paused
     }
 }

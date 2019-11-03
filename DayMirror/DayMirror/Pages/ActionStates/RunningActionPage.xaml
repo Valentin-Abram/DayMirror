@@ -8,17 +8,13 @@
     xmlns:vm="clr-namespace:DayMirror.ViewModels.ActionStates"
     mc:Ignorable="d">
 
-    <ContentPage.BindingContext>
-        <vm:RunningActionViewModel />
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <StackLayout>
             <Label
                 Margin="0,10"
                 FontSize="Large"
                 HorizontalOptions="CenterAndExpand"
-                Text="{Binding Title}"
+                Text="{Binding UserAction.Title}"
                 TextColor="Black" />
             <Label
                 FontSize="Medium"
@@ -27,7 +23,7 @@
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="[ " />
-                        <Span Text="{Binding ActionContextTitle}" />
+                        <Span Text="{Binding UserActionContext.Title}" />
                         <Span Text=" ]" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -39,7 +35,10 @@
                 Text="{Binding TimeElapsed, StringFormat='{0:hh\\:mm\\:ss}'}"
                 VerticalOptions="CenterAndExpand" />
 
-            <Button Command="{Binding FinishActionCommand}" Text="Stop" />
+            <StackLayout Orientation="Horizontal">
+                <Button Command="{Binding FinishActionCommand}" Text="Stop" />
+                <Button Command="{Binding PauseActionCommand}" Text="Pause" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

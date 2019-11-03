@@ -52,20 +52,26 @@ namespace DayMirror
 
         private async Task TryRestoreRunningAction()
         {
+            // if app state is restored successfully
+            if (MainPage.Navigation.NavigationStack.Count > 1)
+            {
+                return;
+            }
+
             var actions = await App.Database.GetDayActionsAsync(DateTime.Now);
 
             var runningAction = actions
                 .Where(a => a.Status == UserActionStatus.Running)
                 .FirstOrDefault();
 
-            if (runningAction != null && MainPage.Navigation.NavigationStack.Count == 1)
+            if (runningAction != null )
             {
-                var actionModel = await UserActionViewModel.FromAction(runningAction);
+                var actionContext = await App.Database.GetActionContextAsync(runningAction.UserActionContextId);
 
-                await MainPage.Navigation.PushAsync(new RunningActionPage()
+                await MainPage.Navigation.PushAsync(new Pages.ActionStates.RunningActionPage()
                 {
-                    BindingContext = actionModel
-                });
+                    BindingContext = new ViewModels.ActionStates.RunningActionViewModel(runningAction, actionContext)
+                }) ;
             }
 
         }

@@ -7,6 +7,7 @@ using SQLite;
 using System.Linq;
 using DayMirror.Pages.Report;
 using DayMirror.Models.UserAction;
+using DayMirror.Enums.UserAction;
 
 namespace DayMirror.Database
 {
@@ -53,6 +54,19 @@ namespace DayMirror.Database
             return statisticData;
         }
 
+        public async Task<bool> SetUserActionStatus(int id, UserActionStatus actionStatus)
+        {
+            var action = await _database.GetAsync<UserAction>(id);
+
+            if (action is null)
+            {
+                return false;
+            }
+
+            action.Status = actionStatus;
+            return await _database.UpdateAsync(action) > 0;
+        }
+
 
         // ToDo : find out why Where condition throws exception and how to make it work properly
         public async Task<List<UserAction>> GetDayActionsAsync(DateTime dateTime)
@@ -88,6 +102,7 @@ namespace DayMirror.Database
         public async Task<UserAction> CreateUserAction(UserAction action)
         {
             action.Date = DateTime.Now;
+            action.Status = UserActionStatus.Created;
             await _database.InsertAsync(action);
 
             return action;

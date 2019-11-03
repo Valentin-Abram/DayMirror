@@ -33,11 +33,10 @@ namespace DayMirror
             actionVM.StartTime = DateTime.Now.TimeOfDay;
             
             var userAction = await App.Database.CreateUserAction(actionVM.GetAction());
-            var actionContextTitle = actionVM.ActionContext.Title;
 
             await Navigation.PushAsync(new Pages.ActionStates.RunningActionPage()
             {
-                BindingContext = new ViewModels.ActionStates.RunningActionViewModel(userAction.ID, userAction.Title, actionContextTitle)
+                BindingContext = new ViewModels.ActionStates.RunningActionViewModel(userAction, actionVM.ActionContext)
             });
         }
 
