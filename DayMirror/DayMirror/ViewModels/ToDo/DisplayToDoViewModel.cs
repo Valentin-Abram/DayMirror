@@ -1,12 +1,7 @@
-﻿using DayMirror.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -27,16 +22,24 @@ namespace DayMirror.ViewModels
             {
                 _selectedItem = value;
                 NotifyPropertyChanged();
-                if (_selectedItem != null)
-                {
-                    RunAction(_selectedItem);
-                }
             }
         }
 
 
+        public ICommand RunActionCommand { get; set; }
+        public ICommand EditActionCommand { get; set; }
+        public ICommand DeleteActionCommand { get; set; }
+
         public DisplayToDoViewModel()
         {
+            RegisterCommands();
+        }
+
+        private void RegisterCommands()
+        {
+            RunActionCommand = new Command<object>(RunAction);
+            EditActionCommand = new Command<object>(EditAction);
+            DeleteActionCommand = new Command<object>(DeleteAction);
         }
 
         public async Task LoadData()
@@ -56,9 +59,19 @@ namespace DayMirror.ViewModels
             }
         }
 
-        public void RunAction(UserActionDisplayModel userActionModel)
+        public void RunAction(object data)
         {
-            SendMessage("RunAction", userActionModel);
+            SendMessage("RunAction", data);
+        }
+
+        public void EditAction(object data)
+        {
+            SendMessage("EditAction", data);
+        }
+
+        public void DeleteAction(object data)
+        {
+            SendMessage("DeleteAction", data);
         }
 
         private void SendMessage(string messageName, object data)

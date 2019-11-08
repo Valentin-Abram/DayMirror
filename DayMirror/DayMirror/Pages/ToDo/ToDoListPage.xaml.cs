@@ -19,6 +19,8 @@ namespace DayMirror.Pages.ToDo
         {
             InitializeComponent();
             MessagingCenter.Subscribe<DisplayToDoViewModel, object>(this, "RunAction", RunAction);
+            MessagingCenter.Subscribe<DisplayToDoViewModel, object>(this, "EditAction", EditAction);
+            MessagingCenter.Subscribe<DisplayToDoViewModel, object>(this, "DeleteAction", DeleteAction);
 
         }
 
@@ -28,7 +30,7 @@ namespace DayMirror.Pages.ToDo
 
             if (userActionDM is null)
             {
-                DisplayAlert("Error lol","Erro===r","Ok");
+                DisplayAlert("Error","Error","Ok");
                 return;
             }
 
@@ -49,6 +51,16 @@ namespace DayMirror.Pages.ToDo
             {
                 BindingContext = new RunningActionViewModel(userAction, userActionDM.ActionContext)
             });
+        }
+
+        private void EditAction(DisplayToDoViewModel sender, object data)
+        {
+            DisplayAlert("Edit action",(data as UserActionDisplayModel).Title, "Ok");
+        }
+
+        private void DeleteAction(DisplayToDoViewModel sender, object data)
+        {
+            DisplayAlert("Delete action",(data as UserActionDisplayModel).Title, "Ok");
         }
 
 

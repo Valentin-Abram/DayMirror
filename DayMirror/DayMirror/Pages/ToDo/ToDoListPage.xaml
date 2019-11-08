@@ -7,6 +7,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:DayMirror.ViewModels"
+    x:Name="ToDoPage"
     mc:Ignorable="d">
     <ContentPage.BindingContext>
         <vm:DisplayToDoViewModel />
@@ -30,6 +31,20 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem
+                                Command="{Binding Path=BindingContext.RunActionCommand, Source={x:Reference ToDoPage}}"
+                                CommandParameter="{Binding .}"
+                                Text="Run" />
+                            <MenuItem
+                                Command="{Binding Path=BindingContext.EditActionCommand, Source={x:Reference ToDoPage}}"
+                                CommandParameter="{Binding .}"
+                                Text="Edit" />
+                            <MenuItem
+                                Command="{Binding Path=BindingContext.DeleteActionCommand, Source={x:Reference ToDoPage}}"
+                                CommandParameter="{Binding .}"
+                                Text="Delete" />
+                        </ViewCell.ContextActions>
                         <StackLayout>
                             <Label
                                 FontAttributes="Bold"
