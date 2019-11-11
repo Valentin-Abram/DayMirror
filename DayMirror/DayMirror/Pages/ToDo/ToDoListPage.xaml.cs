@@ -53,9 +53,35 @@ namespace DayMirror.Pages.ToDo
             });
         }
 
-        private void EditAction(DisplayToDoViewModel sender, object data)
+        private async void EditAction(object sender, object data)
         {
-            DisplayAlert("Edit action",(data as UserActionDisplayModel).Title, "Ok");
+            var action = (data as UserActionDisplayModel);
+
+            if(action is null)
+            {
+                await DisplayAlert("Error", "Cannot navigate to action", "Ok");
+                return;
+            }
+
+            await GoToEditToDoPage(action.ID);
+        }
+
+
+        private async Task GoToEditToDoPage(int actionId)
+        {
+            var userAction = await App.Database.GetUserAction(actionId);
+
+            if (userAction is null)
+            {
+                await DisplayAlert("Error","Cannot navigate to action", "Ok");
+                return;
+            }
+
+            await Navigation.PushAsync(new EditToDoPage()
+            {
+                BindingContext = new EditToDoViewModel(userAction)
+            });
+
         }
 
         private void DeleteAction(DisplayToDoViewModel sender, object data)
