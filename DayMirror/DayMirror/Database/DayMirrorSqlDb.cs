@@ -134,6 +134,11 @@ namespace DayMirror.Database
             return _database.DeleteAsync<UserAction>(action.ID);
         }
 
+        public Task<int> DeleteAction(int Id)
+        {
+            return _database.DeleteAsync<UserAction>(Id);
+        }
+
         public Task<int> CreateOrUpdateActionContextAsync(UserActionContext actionContext)
         {
             if (actionContext.ID == 0)

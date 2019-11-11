@@ -84,11 +84,21 @@ namespace DayMirror.Pages.ToDo
 
         }
 
-        private void DeleteAction(DisplayToDoViewModel sender, object data)
+        private async void DeleteAction(DisplayToDoViewModel sender, object data)
         {
-            DisplayAlert("Delete action",(data as UserActionDisplayModel).Title, "Ok");
+            await DeleteToDoItem((data as UserActionDisplayModel));
         }
 
+
+        private async Task DeleteToDoItem(UserActionDisplayModel actionDisplayModel)
+        { 
+            var result = await DisplayAlert("Delete action?",actionDisplayModel.Title, "Ok","Cancel");
+
+            if (result == true)
+                await App.Database.DeleteAction(actionDisplayModel.ID);
+
+            await (BindingContext as DisplayToDoViewModel).LoadData();
+        }
 
         protected override void OnAppearing()
         {

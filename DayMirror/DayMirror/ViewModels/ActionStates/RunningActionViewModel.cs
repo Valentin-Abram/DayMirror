@@ -83,7 +83,7 @@ namespace DayMirror.ViewModels.ActionStates
 
             await App.Database.UpdateUserAction(this.UserAction);
 
-            if (this.UserAction.Status == UserActionStatus.Finished)
+            if (this.UserAction.Status == UserActionStatus.Paused)
             {
                 MessagingCenter.Send<RunningActionViewModel, UserAction>(this, "PausedActionMessage", this.UserAction);
             }
