@@ -8,17 +8,17 @@
              xmlns:effects ="clr-namespace:DayMirror">
 
     <StackLayout>
-        <Button Text="Create new action"
+        <Button Text="Start action"
                 VerticalOptions="Start"
                 Clicked="OnCreateActionButtonClicked"
+                />
+        <Button Text="Create action"
+                VerticalOptions="Start"
+                Clicked="OnToDoButtonClicked"
                 />
         <Button Text="Reports"
                 VerticalOptions="Start"
                 Clicked="OnDayMirrorButtonClicked"
-                />
-        <Button Text="ToDo"
-                VerticalOptions="Start"
-                Clicked="OnToDoButtonClicked"
                 />
     </StackLayout>
 

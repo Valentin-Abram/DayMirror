@@ -33,10 +33,6 @@
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem
-                                Command="{Binding Path=BindingContext.RunActionCommand, Source={x:Reference ToDoPage}}"
-                                CommandParameter="{Binding .}"
-                                Text="Run" />
-                            <MenuItem
                                 Command="{Binding Path=BindingContext.EditActionCommand, Source={x:Reference ToDoPage}}"
                                 CommandParameter="{Binding .}"
                                 Text="Edit" />
